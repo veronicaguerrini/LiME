@@ -1,5 +1,3 @@
-# LightMetaEbwt_v2
+# LightMetaEbwt
 
-New version of https://github.com/veronicaguerrini/LightMetaEbwt
-
-Soon available online.
+New version soon available.
