@@ -66,15 +66,10 @@ The three steps are accomplished by running:
 
 (1) ClusterLCP with input parameters name of the fasta file, total number of reads in *S*, total number of genomes in *S* and *alpha*;
 
-(2) ClusterBWT with input parameters name of the fasta file, length of reads, and *beta*;
+(2) ClusterBWT_DA with input parameters name of the fasta file, length of reads, and *beta*;
 
 (3) Classify providing in input txt files obtained by running ClusterBWT, the total number of genomes in *S*, and name of the output file.
 
-```sh
- ClusterLCP fileFasta numReads numGenomes alpha
- ClusterBWT fileFasta readLength beta
- Classify N fileInput1 ... fileInputN numGenomes fileOutput
-```
 Recall that in order to run ClusterLCP we need to have fileFasta.lcp and fileFasta.da computed, while to run ClusterBWT we need fileFasta.da and fileFasta.ebwt.
 
 ### Example
@@ -87,20 +82,6 @@ As preprocessing, we construct the datastructures ebwt, lcp, and da for the set 
 Then, we merge the datastructures (ebwt, lcp, da) associated with Refs.fasta to those associated with the sets of reads (setB2_1.fasta and setB2_2.fasta, and setB2_1_RC.fasta and setB2_2_RC.fasta, which contain the reverse complement of setB2_1.fasta and setB2_2.fasta) as to obtain the datastructures for the four collections: 
 setB2_1+Refs.fasta, setB2_1_RC+Refs.fasta, setB2_2+Refs.fasta, setB2_2_RC+Refs.fasta.
 
-We assign any read (or its reverse complement) in setB2 to a reference genome in *G*.
-
-```sh
-for X in 1 1_RC 2 2_RC
-do
- ClusterLCP setB2_$X+Refs.fasta 20249373 930 16
- ClusterBWT setB2_$X+Refs.fasta 100 0.25 
-done
-```
-The output of steps (1) and (2) are then given in input to step (3).
-
-```sh
-Classify 4 Clustering_results_B0.25_setB2_1+Refs.fasta.txt Clustering_results_B0.25_setB2_1_RC+Refs.fasta.txt Clustering_results_B0.25_setB2_2+Refs.fasta.txt Clustering_results_B0.25_setB2_2_RC+Refs.fasta.txt 930 results_setB2.txt
-```
 ## References
 
 [1] V. Guerrini and G. Rosone. Lightweight Metagenomic Classification via eBWT. Alcob 2019. LNCS, vol 11488, pp 112-124.
