@@ -84,11 +84,6 @@ struct ElementCluster {
 	dataTypeNChar len;
 };
 
-struct ElementInCluster {
-	dataTypeNSeq reads;	
-	dataTypeNSeq targs; 
-};
-
 struct type_cluster {
 	dataTypeNSeq idRef;		
 	dataTypeSim sim;
