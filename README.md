@@ -43,9 +43,21 @@ git clone https://github.com/veronicaguerrini/LightMetaEbwt
 cd LightMetaEbwt
 ```
 ### Compile
+One can choose between the two strategies of Step 2. by setting parameter EBWT: 
+for the first approach (a) set EBWT=1 (default)
 
 ```sh
 make
+```
+while for running the second approach (b) set EBWT=0
+
+```sh
+make EBWT=0
+```
+Moreover, LightMetaEbwt allows to classify reads at any rank between species and phylum (without specifying a fixed taxonimic level) by taking advantage of taxonomic lineages of taxa using the option HIGHER=1 (default HIGHER=0).
+
+```sh
+make HIGHER=1
 ```
 ### Run
 
