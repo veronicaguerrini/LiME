@@ -1,3 +1,100 @@
-# LightMetaEbwt
+# LightMetaEbwt 
 
-New version soon available.
+LightMetaEbwt is a novel lightweight alignment-free and assembly-free framework for metagenomic classification that is combinatorial by nature and allows us to use little internal memory. In [1], a [preliminary version of LightMetaEbwt](https://github.com/veronicaguerrini/LightMetaEbwt_Alcob) has been introduced together with a new sequence similarity measure based on the properties of the extended Burrows–Wheeler transform. We now implement two variants of the above similarity measure and improve the overall classification. In addition, the new version of our tool allows to use multiple processors/cores.
+
+Let *S* be a large collection of biological sequences comprising both reads and genomes. For simplicity, we denote by *R* the subset of reads (metagenomic sample) and by *G* the subset of genomes (reference database).
+
+It takes in input:
+- the extended Burrows–Wheeler transform (ebwt), or multi-string BWT, of collection *S*;
+- the longest common prefix array (lcp) of collection *S*;
+- the document array (da) of collection *S*.
+
+By calculating a similarity degree between any read in *R* and any genome in *G*, LightMetaEbwt performs the metagenomic classification by assigning any read to a unique taxon of belonging. It is able to classify the reads to several taxonomic levels such as genomes, species or phylum.
+
+The underlying method can be summarized in three main steps: 
+
+1. By reading da(*S*) and lcp(*S*), we detect *alpha*-clusters, *i.e.*, blocks of of ebwt(*S*) containing symbols belonging both to *R* and to *G* and whose associated suffixes share a common context of a minimum length *alpha*; 
+
+2. We analyze *alpha*-clusters in order to evaluate a degree of similarity between any read and any genome in *S* by using two different approaches: (a) by reading both da(*S*) and ebwt(*S*), and (b) by reading only da(*S*).
+
+3. We perform the read assignment: every read in *R* either is assigned to a particular taxon, or it is reported as not classified.
+
+The above strategy is suitable for classifying reads belonging to a single read collection or a paired-end read collection. For paired-end read collections, the procedures at Step 1. and Step 2. have to be repeated for the data structures of both strands (forward and reverse complement) of both paired-end reads.
+
+### Preprocessing step
+
+There are mainly two options to obtain the required data structures (ebwt, lcp, da) for *S*:
+- one could build ebwt, lcp, and da starting from a fasta file containing both the reads in *R* and the genomes in *G*;
+- or, one could build the data structures ebwt, lcp, and da separately for the set *G* and the set *R*, and then merge them to obtain ebwt, lcp, and da for the entire collection *S*.
+
+The advantage of the latter choice lies on building the data structures of the set *G* of genomes only once if *G* is the same for each experiment.
+
+To build ebwt, lcp, and da files from scratch from a single fasta file, one could use BCR [https://github.com/giovannarosone/BCR_LCP_GSA], or egsa [https://github.com/felipelouza/egsa] for instance. Note that egsa tool returns the three datastructures in a single file (fastaFile.K.gesa, with K being the number of sequences). The executable file EGSAtoBCR is to convert fastaFile.K.gesa into fileFasta.ebwt, fileFasta.lcp, and fileFasta.da -- use command EGSAtoBCR filefasta K.
+
+To merge the data structures ebwt and lcp associated with *R* and *G*, one could use eGap [https://github.com/felipelouza/egap] and set the option -d to obtain the document array (da) of the merge.
+
+On the other hand, exploiting the mathematical properties of the permutation associated with the
+ebwt and lcp, one could use BCR [https://github.com/giovannarosone/BCR_LCP_GSA] *incrementally* in order to update the data structures obtained for *G* with th symbols in *R* and to obtain the data structures for the collection *S* (without constructing the eBWT and lcp for *R* from scratch) .
+
+### Install
+
+```sh
+git clone https://github.com/veronicaguerrini/LightMetaEbwt
+cd LightMetaEbwt
+```
+### Compile
+
+```sh
+make
+```
+### Run
+
+We set *alpha*=16 and a threshold value *beta*=0.25 for the minimum similarity score.
+The three steps are accomplished by running:
+
+(1) ClusterLCP with input parameters name of the fasta file, total number of reads in *S*, total number of genomes in *S* and *alpha*;
+
+(2) ClusterBWT with input parameters name of the fasta file, length of reads, and *beta*;
+
+(3) Classify providing in input txt files obtained by running ClusterBWT, the total number of genomes in *S*, and name of the output file.
+
+```sh
+ ClusterLCP fileFasta numReads numGenomes alpha
+ ClusterBWT fileFasta readLength beta
+ Classify N fileInput1 ... fileInputN numGenomes fileOutput
+```
+Recall that in order to run ClusterLCP we need to have fileFasta.lcp and fileFasta.da computed, while to run ClusterBWT we need fileFasta.da and fileFasta.ebwt.
+
+### Example
+
+In Datasets, we provide some examples of simulated metagenomic samples. (See for details Datasets/Experiments_links.txt).
+
+The dataset setB2 is a sample of 20,249,373 paired end short reads (100 bps) stored in setB2_1.fasta and setB2_2.fasta.
+
+As preprocessing, we construct the datastructures ebwt, lcp, and da for the set *G* -- Refs.fasta is the fasta file of reference genomes (number of genomes: 930). 
+Then, we merge the datastructures (ebwt, lcp, da) associated with Refs.fasta to those associated with the sets of reads (setB2_1.fasta and setB2_2.fasta, and setB2_1_RC.fasta and setB2_2_RC.fasta, which contain the reverse complement of setB2_1.fasta and setB2_2.fasta) as to obtain the datastructures for the four collections: 
+setB2_1+Refs.fasta, setB2_1_RC+Refs.fasta, setB2_2+Refs.fasta, setB2_2_RC+Refs.fasta.
+
+We assign any read (or its reverse complement) in setB2 to a reference genome in *G*.
+
+```sh
+for X in 1 1_RC 2 2_RC
+do
+ ClusterLCP setB2_$X+Refs.fasta 20249373 930 16
+ ClusterBWT setB2_$X+Refs.fasta 100 0.25 
+done
+```
+The output of steps (1) and (2) are then given in input to step (3).
+
+```sh
+Classify 4 Clustering_results_B0.25_setB2_1+Refs.fasta.txt Clustering_results_B0.25_setB2_1_RC+Refs.fasta.txt Clustering_results_B0.25_setB2_2+Refs.fasta.txt Clustering_results_B0.25_setB2_2_RC+Refs.fasta.txt 930 results_setB2.txt
+```
+## References
+
+[1] V. Guerrini and G. Rosone. Lightweight Metagenomic Classification via eBWT. Alcob 2019. LNCS, vol 11488, pp 112-124.
+
+## Thanks
+
+<small> Supported by the project Italian MIUR-SIR [CMACBioSeq][240fb5f5] ("_Combinatorial methods for analysis and compression of biological sequences_") grant n.~RBSI146R5L. P.I. Giovanna Rosone</small>
+
+[240fb5f5]: http://pages.di.unipi.it/rosone/CMACBioSeq.html
