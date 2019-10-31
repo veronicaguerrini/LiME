@@ -97,22 +97,27 @@ LineageFile is a semicolon-separated file where genome taxonomy information are 
 TaxRank is an integer in the range [1,6] that stands for any classification level between phylum(=1) and species(=6).
 
 
-Alternatively, one could run LightMetaEbwt_single.sh (for single read collections) or LightMetaEbwt_paired.sh (for paired-end read collections) that use default values *alpha*=16, *beta*=0.25 and TaxRank=6, and take as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
+Alternatively, for paired-end read collections, one may run LightMetaEbwt_paired.sh that uses default values *alpha*=16, *beta*=0.25 and TaxRank=6, and takes as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
 
-
+```sh
+LightMetaEbwt_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2RC+Refs.fasta numReads numRefs length threads
+```
 
 ### Example
 
 In Datasets, we provide some examples of simulated metagenomic samples. (See for details Datasets/Experiments_links.txt).
 
 The dataset setB2 is a sample of 20,249,373 paired end short reads (100 bps) stored in setB2_1.fasta and setB2_2.fasta.
-The database Refs.fasta is the fasta file of reference genomes (number of genomes: 930), whose taxonomic information is in 
+The database Refs.fasta is the fasta file of reference genomes (number of genomes: 930), whose taxonomic information is in ./Datasets/Reference_database.csv
 
 As preprocessing, we construct the datastructures ebwt, lcp, and da for the set *G*. Then, we merge the datastructures (eb wt, lcp, da) associated with Refs.fasta to those associated with the sets of reads (setB2_1.fasta and setB2_2.fasta, and setB2_1_RC.fasta and setB2_2_RC.fasta, which contain the reverse complement of setB2_1.fasta and setB2_2.fasta) as to obtain the datastructures for the four collections: 
 setB2_1+Refs.fasta, setB2_1_RC+Refs.fasta, setB2_2+Refs.fasta, setB2_2_RC+Refs.fasta.
 
-We run LightMetaEbwt to assign any read (or its reverse complement) in setB2 to a species in *G*
+We store the above datastructures in the directory Datasets, and run LightMetaEbwt to assign any read (or its reverse complement) in setB2 to a species of *G*.
 
+```sh
+LightMetaEbwt_paired.sh ./Datasets/setB2_1+Refs.fasta ./Datasets/setB2_1_RC+Refs.fasta ./Datasets/setB2_2+Refs.fasta ./Datasets/setB2_2_RC+Refs.fasta numReads numRefs length threads
+```
 
 ## References
 
