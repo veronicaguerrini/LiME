@@ -19,7 +19,9 @@ The underlying method can be summarized in three main steps:
 
 3. We perform the read assignment: every read in *R* either is assigned to a particular taxon, or it is reported as not classified if the maximum similarity score achieved by *R* is lower than *beta* (threshold value).
 
-The above strategy is suitable for classifying reads belonging to a single read collection or a paired-end read collection. For paired-end read collections, the procedures at Step 1. and Step 2. have to be repeated for the data structures of both strands (forward and reverse complement) of both paired-end reads.
+The above strategy is suitable for classifying reads belonging to a single read collection or a paired-end read collection.
+Howover, since reads' strand direction is unknown, both the original sequences and their reverse complements should be considered to keep reads properly oriented and to improve their classification.
+For paired-end read collections, thus, the procedures at Step 1. and Step 2. have to be repeated for the data structures of both strands (forward and reverse complement) of both paired-end reads.
 
 ### Preprocessing step
 
@@ -97,7 +99,7 @@ LineageFile is a semicolon-separated file where genome taxonomy information are 
 TaxRank is an integer in the range [1,6] that stands for any classification level between phylum(=1) and species(=6).
 
 
-Alternatively, for paired-end read collections, one may run LightMetaEbwt_paired.sh that uses default values *alpha*=16, *beta*=0.25 and TaxRank=6, and takes as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
+For paired-end read collections, one may run LightMetaEbwt_paired.sh that uses default values *alpha*=16, *beta*=0.25 and TaxRank=6, and takes as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
 
 ```sh
 LightMetaEbwt_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2RC+Refs.fasta numReads numRefs length threads
