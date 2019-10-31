@@ -17,7 +17,7 @@ The underlying method can be summarized in three main steps:
 
 2. We analyze *alpha*-clusters in order to evaluate a degree of similarity between any read and any genome in *S* by using two different approaches: (a) by reading both da(*S*) and ebwt(*S*), and (b) by reading only da(*S*).
 
-3. We perform the read assignment: every read in *R* either is assigned to a particular taxon, or it is reported as not classified.
+3. We perform the read assignment: every read in *R* either is assigned to a particular taxon, or it is reported as not classified if the maximum similarity score achieved by *R* is lower than *beta* (threshold value).
 
 The above strategy is suitable for classifying reads belonging to a single read collection or a paired-end read collection. For paired-end read collections, the procedures at Step 1. and Step 2. have to be repeated for the data structures of both strands (forward and reverse complement) of both paired-end reads.
 
@@ -44,6 +44,7 @@ cd LightMetaEbwt
 ```
 ### Compile
 One can choose between the two strategies of Step 2. by setting parameter EBWT: 
+
 for the first approach (a) set EBWT=1 (default)
 
 ```sh
@@ -61,16 +62,32 @@ make HIGHER=1
 ```
 ### Run
 
-We set *alpha*=16 and a threshold value *beta*=0.25 for the minimum similarity score.
 The three steps are accomplished by running:
 
-(1) ClusterLCP with input parameters name of the fasta file, total number of reads in *S*, total number of genomes in *S* and *alpha*;
+(1) ClusterLCP with input parameters: name of the fasta file, total number of reads in *S*, total number of genomes in *S*, *alpha* and number of threads;
 
-(2) ClusterBWT_DA with input parameters name of the fasta file, length of reads, and *beta*;
+(2) ClusterBWT_DA with input parameters: name of the fasta file, length of the reads, *beta* and number of threads;
 
-(3) Classify providing in input txt files obtained by running ClusterBWT, the total number of genomes in *S*, and name of the output file.
+Recall that in order to run ClusterLCP we need to have the two datastructures fileFasta.lcp and fileFasta.da computed, while to run ClusterBWT_DA we need only fileFasta.da if EBWT=0, both fileFasta.da and fileFasta.ebwt if EBWT=1.
 
-Recall that in order to run ClusterLCP we need to have fileFasta.lcp and fileFasta.da computed, while to run ClusterBWT we need fileFasta.da and fileFasta.ebwt.
+(3) Classify with input parameters: number of files, files obtained by running ClusterBWT_DA, total number of reads in *S*, total number of genomes in *S*, OutputFile, LineageFile, TaxRank and number of threads.
+
+OutputFile is the ','-separated file where the classification results will be stored according to the format:
+
+C/U/A/H,IdSeqRead,TaxID,maxSim
+
+where C=Classified, U=not classified, A=Ambiguous, H=classified at higher ranks (if HIGHER=1).
+
+LineageFile is a ';'-separated file where genome taxonomy information are stored according to the format:
+
+Seq_ID;Phylum_TaxID;Class_TaxID;Order_TaxID;Family_TaxID;Genus_TaxID;Species_TaxID.
+
+TaxRank is an integer in the range [1,6] that stands for any classification level between phylum(=1) and species(=6).
+
+
+Alternatively, one could run LightMetaEbwt_single.sh (for single read collections) or LightMetaEbwt_paired.sh (for paired-end read collections) that use default values *alpha*=16 and *beta*=0.25.
+
+
 
 ### Example
 
