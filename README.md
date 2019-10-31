@@ -118,7 +118,7 @@ setB2_1+Refs.fasta, setB2_1_RC+Refs.fasta, setB2_2+Refs.fasta, setB2_2_RC+Refs.f
 We store the above datastructures in the directory Datasets, and run LightMetaEbwt to assign any read (or its reverse complement) in setB2 to a species of *G*.
 
 ```sh
-LightMetaEbwt_paired.sh ./Datasets/setB2_1+Refs.fasta ./Datasets/setB2_1_RC+Refs.fasta ./Datasets/setB2_2+Refs.fasta ./Datasets/setB2_2_RC+Refs.fasta numReads numRefs length threads
+LightMetaEbwt_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2_2_RC+Refs.fasta numReads numRefs length threads
 ```
 
 ## References
