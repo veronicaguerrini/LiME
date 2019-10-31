@@ -66,26 +66,37 @@ The three steps are accomplished by running:
 
 (1) ClusterLCP with input parameters: name of the fasta file, total number of reads in *S*, total number of genomes in *S*, *alpha* and number of threads;
 
+```sh
+ClusterLCP ReadsF+Refs.fasta numReads numRefs alpha threads
+```
+
 (2) ClusterBWT_DA with input parameters: name of the fasta file, length of the reads, *beta* and number of threads;
+
+```sh
+ClusterBWT_DA ReadsF+Refs.fasta length beta threads
+```
 
 Recall that in order to run ClusterLCP we need to have the two datastructures fileFasta.lcp and fileFasta.da computed, while to run ClusterBWT_DA we need only fileFasta.da if EBWT=0, both fileFasta.da and fileFasta.ebwt if EBWT=1.
 
-(3) Classify with input parameters: number of files, files obtained by running ClusterBWT_DA, total number of reads in *S*, total number of genomes in *S*, OutputFile, LineageFile, TaxRank and number of threads.
+(3) Classify with input parameters: number of files, files obtained by running ClusterBWT_DA, total number of reads in *S*, total number of genomes in *S*, OutputFile, LineageFile, TaxRank and number of threads;
 
-OutputFile is the ','-separated file where the classification results will be stored according to the format:
+```sh
+Classify N Input1 ... InputN numReads numRefs OutputFile LineageFile TaxRank threads
+```
+
+OutputFile is the comma-separated file where the classification results will be stored according to the format:
 
 C/U/A/H,IdSeqRead,TaxID,maxSim
 
 where C=Classified, U=not classified, A=Ambiguous, H=classified at higher ranks (if HIGHER=1).
 
-LineageFile is a ';'-separated file where genome taxonomy information are stored according to the format:
+LineageFile is a semicolon-separated file where genome taxonomy information are stored according to the format:
 
 Seq_ID;Phylum_TaxID;Class_TaxID;Order_TaxID;Family_TaxID;Genus_TaxID;Species_TaxID.
 
 TaxRank is an integer in the range [1,6] that stands for any classification level between phylum(=1) and species(=6).
 
-
-Alternatively, one could run LightMetaEbwt_single.sh (for single read collections) or LightMetaEbwt_paired.sh (for paired-end read collections) that use default values *alpha*=16 and *beta*=0.25.
+Alternatively, one could run LightMetaEbwt_single.sh (for single read collections) or LightMetaEbwt_paired.sh (for paired-end read collections) that use default values *alpha*=16 and *beta*=0.25, and take as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
 
 
 
