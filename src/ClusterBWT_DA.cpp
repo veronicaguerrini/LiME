@@ -606,12 +606,7 @@ int main(int argc, char **argv) {
 		#endif
     }
     //Open Output file
-	string fnF="Res_"+fileFasta.substr(0,fileFasta.find(".fasta"));
-	#if EBWT
-		fnF+="_EBWT1";
-	#else
-		fnF+="_EBWT0";
-	#endif
+	string fnF=fileFasta+".res";
 	
     #if BIN
 		FILE *fdResultPos, *fdResultBin;
