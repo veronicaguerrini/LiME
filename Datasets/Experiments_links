@@ -1,27 +1,48 @@
-Here are the instructions to build up eight different datasets each one obtained by union of:
+Here are the instructions to dowload and build up different datasets and reference databases.
 
-* a set of reads (setA2_1, setA2_2, setB2_1, setB2_2)
-* a set of genomes (reference database). 
+
+##Simulated datasets
+
+* sets of paired-end reads (setA2_1, setA2_2; setB2_1, setB2_2)
+* a set of genomes 
 
 ### Sets of reads
 
-The sets of simulated paired end reads we used for experiments are downloadable from 
-
+The sets of simulated paired-end reads we used for experiments are downloadable from 
 http://www.gardner-binflab.org/lindgreen-et-al-metagenomics-benchmark-data/
 
-and were designed ad hoc for a benchmarking analysis of metagenomic tools by reproducing the size, complexity and characteristics of real metagenomic samples. 
-Moreover, Lindgreen's datasets were designed to include subsets of simulated shuffled reads as negative controls in order to test the reliability of the tools.
+They were designed ad hoc for a benchmarking analysis of metagenomic tools by reproducing the size, complexity and characteristics of real metagenomic samples. 
+Moreover, Lindgreen's datasets were designed to include subsets of simulated random shuffled reads in order to test the reliability of the classification.
 
-For our experiments, we selected the sets setA2 (setA2_1, setA2_2) and setB2 (setB2_1, setB2_2) and we modified the content of each fasta file as follows. 
+We selected the sets setA2 (setA2_1, setA2_2) and setB2 (setB2_1, setB2_2) and we modified the content of each fasta file as follows. 
 
-We took the random shuffled whose titles are in files title_setA2ran.txt.gz and title_setB2ran.txt.gz, respectively.
+We took the random shuffled reads whose titles are in files title_setA2ran.txt.gz and title_setB2ran.txt.gz, respectively.
 We removed from setA2 and from setB2 a group of reads associated with the phylum of Eukaryotes whose species provenance was not specified.
 In addition, we preferred to discard also a group of reads whose associated genomes are expiring entries in the NCBI database being obsolete or incorrect. 
-Each set of considered reads of setA2 and setB2 thus contains around 20 millions of sequences belonging to 17 different phyla and 686 species. 
-The complete list of reads taken into account in setA2 and setB2 is partitioned in files title_setA2_part_.gz* and title_setB2_part_.gz*, respectively.
-To decompress them one could use the command cat compressed.gz* | zcat > /path/to/decrompressed/file
+Each set of considered reads of setA2 and setB2 thus contains around 20 millions of sequences excluding the number of random shuffled reads. 
+The list of reads taken into account in setA2 and setB2 is partitioned in files title_setA2_part_.gz* and title_setB2_part_.gz*, respectively.
+To decompress them, one could use the command cat compressed.gz* | zcat > /path/to/decrompressed/file
 
 ### Reference database
 
-The set of reference genomes were provided by Lindgreen et al. https://www.nature.com/articles/srep19233 in the Supplementary Table S2.
-In Reference_database.csv we report accession numbers, phylum taxonomy ID, and species taxonomy ID for each of the 930 genomes considered in our datasets. 
+The reference database comprises 930 genomes from 686 species belonging to 17 phyla as indicated in Lindgreen et al. https://www.nature.com/articles/srep19233 in the Supplementary Table S2.
+In Reference_database.csv we report the accession number and the lineage for genome considered. 
+
+
+
+##Real dataset
+
+* a set of paired-end reads (SRR1804065)
+* a set of genomes 
+
+### Sets of reads
+
+The real metagenome is a paired-end read collection from the Human Microbiome Project (HMP). It is a tool sample of a female participant downloadable from 
+https://www.ncbi.nlm.nih.gov/sra/SRR1804065
+
+Since the "ground truth" is not available for a real metagenome and a large number of reads may belong to unknown species, we first filtered this dataset by using BLAST. The list of reads examined in SRR1804065 is in file title_SRR1804065.txt.gz.
+
+### Reference database
+
+The reference database we use for this experiment comprises 3,423 genomes from 1,499 species belonging to 42 phyla.
+The list of their accession number is in Refs_SRR1804065.txt.
