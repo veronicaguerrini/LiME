@@ -40,7 +40,8 @@ In Reference_database.csv we report the accession number and the lineage for gen
 The real metagenome is a paired-end read collection from the Human Microbiome Project (HMP). It is a tool sample of a female participant downloadable from 
 https://www.ncbi.nlm.nih.gov/sra/SRR1804065
 
-Since the "ground truth" is not available for a real metagenome and a large number of reads may belong to unknown species, we first filtered this dataset by using BLAST. The list of reads examined in SRR1804065 is in file title_SRR1804065.txt.gz.
+Since the "ground truth" is not available for a real metagenome and a large number of reads may belong to unknown species, we first filtered this dataset by using BLAST.
+The list of reads examined in SRR1804065 is in file title_SRR1804065.txt.gz.
 
 ### Reference database
 
