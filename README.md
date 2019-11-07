@@ -1,6 +1,6 @@
 # LightMetaEbwt 
 
-LightMetaEbwt is a novel lightweight alignment-free and assembly-free framework for metagenomic classification that is combinatorial by nature and allows us to use little internal memory. In [1], a [preliminary version of LightMetaEbwt](https://github.com/veronicaguerrini/LightMetaEbwt_Alcob) has been introduced together with a new sequence similarity measure based on the properties of the extended Burrows–Wheeler transform. We now implement two variants of the above similarity measure and improve the overall classification. In addition, the new version of our tool allows to use multiple processors/cores.
+LightMetaEbwt is a novel lightweight alignment-free and assembly-free framework for metagenomic classification that is combinatorial by nature and allows us to use little internal memory. In [1], a [preliminary version of LightMetaEbwt](https://github.com/veronicaguerrini/LightMetaEbwt_Alcob) has been introduced together with a new sequence similarity measure based on the properties of the extended Burrows–Wheeler transform. In [2], we now implement two variants of the above similarity measure and improve the overall classification. In addition, the new version of our tool allows to use multiple processors/cores.
 
 Let *S* be a large collection of biological sequences comprising both reads and genomes. For simplicity, we denote by *R* the subset of reads (metagenomic sample) and by *G* the subset of genomes (reference database).
 
@@ -124,6 +124,8 @@ LightMetaEbwt_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fa
 ## References
 
 [1] V. Guerrini and G. Rosone. Lightweight Metagenomic Classification via eBWT. Alcob 2019. LNCS, vol 11488, pp 112-124.
+
+[2] V. Guerrini, F. A. Louza and G. Rosone. Metagenomic analysis through the extended Burrows-Wheeler transform. Submitted.
 
 ## Thanks
 
