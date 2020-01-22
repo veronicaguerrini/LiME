@@ -108,20 +108,20 @@ int main(int argc, char **argv) {
 		InDA[tid] = fopen(fnDA.c_str(), "rb");
         if(!tid){
           std::cout << "\n\t" << fnLCP;
-          std::cout << "\n\t" << fnDA;
-        }
-    }
-	
-	if ((InLCP[0]==NULL)){
+		if ((InLCP[tid]==NULL)){
 		std::cerr << "Error opening " << fnLCP << "." << std::endl;
 		printf("fopen failed, errno = %d\n", errno);
 		exit (EXIT_FAILURE);
 	}
-	if ((InDA[0]==NULL)){
+          std::cout << "\n\t" << fnDA;
+		if ((InDA[tid]==NULL)){
 		std::cerr << "Error opening " << fnDA << "." << std::endl;
 		printf("fopen failed, errno = %d\n", errno);
 		exit (EXIT_FAILURE);
 	}
+        }
+    }
+	
 	//InLCP dimension
 	fseek(InLCP[0], 0, SEEK_END);
 	dataTypeNChar sizeInLCP=ftell(InLCP[0])/sizeof(dataTypeNSeq);
@@ -184,8 +184,8 @@ int main(int argc, char **argv) {
 		dataTypeNSeq *bufferEle = new dataTypeNSeq[bufferSize+1];
 		
 		dataTypeNChar index=1;
-		if(tid!=0)
-			index=tid*chunk;
+		if(t_id!=0)
+			index=t_id*chunk;
 		
 
 		numcharLCP=fread(&bufferLCP[0],sizeof(dataTypelenSeq),1,InLCP[t_id]);
