@@ -322,7 +322,7 @@ float reExamination_1(std::set<dataTypeNSeq> &setGen, std::vector<string> &lineI
 	if ( maxSum > secondMaxSum + 0.001){
 		#if OMP
 			vOutput[idSeqRead].type='C';
-			vOutput[idSeqRead].TaxID=TaxIDMaxSum+1;
+			vOutput[idSeqRead].TaxID=TaxIDMaxSum;
 			vOutput[idSeqRead].sim=maxSum;
 		#else
 			out << "C," << idSeqRead << "," << TaxIDMaxSum << "," << maxSum << "\n";
