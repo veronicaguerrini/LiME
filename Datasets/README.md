@@ -6,7 +6,7 @@ Here are the instructions to download and build up some datasets and reference d
 * sets of paired-end reads (setA2 and setB2_1)
 * set of genomes 
 
-### Sets of reads
+### Reads
 
 The sets of simulated paired-end reads we used for experiments were designed ad hoc for a benchmarking analysis of metagenomic tools (Lindgreen, Adair & Gardner (2016)). They reproduce the size, complexity and characteristics of real metagenomic samples and moreover, in order to test the reliability of each classification, they include subsets of simulated random shuffled reads that should not be classified.
 
@@ -45,7 +45,7 @@ To download genomes from their accession number, one could use the NCBI EFetch u
 * set of genomes 
 
 
-### Sets of reads
+### Reads
 
 The set of real metagenome SRR1804065 is a tool sample of a female participant to the Human Microbiome Project (HMP), see https://www.ncbi.nlm.nih.gov/sra/SRR1804065. It is a paired-end read collection free to download using, for instance, the SRA toolkit utility *fastq-dump*.
 
