@@ -1,7 +1,7 @@
 Here are the instructions to download and build up some datasets and reference databases.
 
 
-##Simulated datasets
+## Simulated datasets
 
 * sets of paired-end reads (setA2 and setB2_1)
 * set of genomes 
@@ -24,7 +24,7 @@ cat title_setB2_part_.gz* | zcat > title_setB2.txt
 
 The list of random shuffled reads we took into account for the negative control is in title_setA2ran.txt.gz and title_setB2ran.txt.gz, respectively.
 
-To build up the datasets starting from the list of reads (title_* .txt), one could use the script *filter_by_headers.pl* replacing the *fastq* and *headings* file names with their own file names. For instance, the set of reads considered for the positive control in setA2_1 is obtained simply by running
+To build up the datasets starting from the list of reads (title_* .txt), one could use the script *filter_by_headers.pl* replacing the *fastq* and *headings* file names with their own file names. For instance, the set of reads considered for the positive control in setA2_1 can be obtained by running
 
 ```sh
 perl filter_by_headers.pl > setA2_1.noRan.fq
@@ -39,7 +39,7 @@ To download genomes from their accession number, one could use the NCBI EFetch u
  wget "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=CP000360.1&rettype=fasta&retmode=text"
  ```
  
-##Real dataset
+## Real dataset
 
 * set of paired-end reads (SRR1804065)
 * set of genomes 
