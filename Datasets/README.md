@@ -50,9 +50,9 @@ To download genomes from their accession number, one could use the NCBI EFetch u
 The set of real metagenome SRR1804065 is a tool sample of a female participant to the Human Microbiome Project (HMP), see https://www.ncbi.nlm.nih.gov/sra/SRR1804065. It is a paired-end read collection free to download using, for instance, the SRA toolkit utility *fastq-dump*.
 
 Since the "ground truth" is not available for a real metagenome and a large number of reads is likely to belong to unknown species, we first filtered out the dataset by using BLAST.
-The list of reads we took into account in SRR1804065 is partitioned in file title_SRR1804065.txt.gz*. 
+The list of reads we took into account is partitioned in file title_SRR1804065.txt.gz*. 
 
-To build up the dataset, one could decompress the list of examined reads (title_SRR1804065.txt)
+To build up the dataset we used, one could decompress the list of examined reads (title_SRR1804065.txt)
 ```sh
 cat title_SRR1804065.txt.gz* | zcat > title_SRR1804065.txt
  ```
