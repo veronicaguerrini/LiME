@@ -34,7 +34,7 @@ perl filter_by_headers.pl > setA2_1.noRan.fq
 
 The reference database comprises 930 genomes from 686 species belonging to 17 phyla as indicated in Lindgreen et al. https://www.nature.com/articles/srep19233 in the Supplementary Table S2. In Reference_database.csv we report the accession number and the lineage for any genome considered. 
 
-To download genomes from their accession number, one could use the NCBI EFetch utility: try the following URL to download the nucleotide genome for CP000360.1
+To download genomes from their accession number, one could use the NCBI EFetch utility: see the following URL to download the nucleotide genome for CP000360.1
 ```sh
  wget "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=CP000360.1&rettype=fasta&retmode=text"
  ```
