@@ -75,7 +75,7 @@ fileRefDB="Reference_database.csv"
 
 if [ $step3 -eq 1 ]
 then
-/usr/bin/time -v ./Classify 4 ./Datasets/$FastaFile1_F".res" ./Datasets/$FastaFile1_RC".res" ./Datasets/$FastaFile2_F".res" ./Datasets/$FastaFile2_RC".res" $numReads $numGenomes $output ./Datasets/$fileRefDB 6 $threads > "Classify_"$output".stdout" 2> "Classify_"$output".stderr"
+/usr/bin/time -v ./Classify 4 ./Datasets/$FastaFile1_F".res" ./Datasets/$FastaFile1_RC".res" ./Datasets/$FastaFile2_F".res" ./Datasets/$FastaFile2_RC".res" $numReads $numGenomes $output ./Datasets/$fileRefDB 1 $threads > "Classify_"$output".stdout" 2> "Classify_"$output".stderr"
 
 fi
 
