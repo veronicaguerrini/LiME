@@ -94,12 +94,12 @@ where C=Classified, U=not classified, A=Ambiguous, H=classified at higher ranks 
 
 LineageFile is a semicolon-separated file where genome taxonomy information are stored according to the format:
 
-*Seq_ID;Phylum_TaxID;Class_TaxID;Order_TaxID;Family_TaxID;Genus_TaxID;Species_TaxID*
+*Accession_number;Species_TaxID;Genus_TaxID;Family_TaxID;Order_TaxID;Class_TaxID;Phylum_TaxID*
 
-TaxRank is an integer in the range [1,6] that stands for any classification level between phylum(=1) and species(=6).
+TaxRank is an integer in the range [0,6] that stands for any classification level between genome(=0) and phylum(=6).
 
 
-For paired-end read collections, one may run LightMetaEbwt_paired.sh that uses default values *alpha*=16, *beta*=0.25 and TaxRank=6, and takes as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
+For 100bp paired-end read collections, one may run LightMetaEbwt_paired.sh that has *alpha*=16, *beta*=0.25 and TaxRank=1, and takes as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
 
 ```sh
 LightMetaEbwt_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2RC+Refs.fasta OutputFile numReads numRefs length threads
