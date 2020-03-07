@@ -1,6 +1,6 @@
-# LightMetaEbwt 
+# LiME -- LightMetaEbwt 
 
-LightMetaEbwt is a novel lightweight alignment-free and assembly-free framework for metagenomic classification that is combinatorial by nature and allows us to use little internal memory. In [1], a [preliminary version of LightMetaEbwt](https://github.com/veronicaguerrini/LightMetaEbwt_Alcob) has been introduced together with a new sequence similarity measure based on the properties of the extended Burrows–Wheeler transform. In [2], we now implement two variants of the above similarity measure and improve the overall classification. In addition, the new version of our tool allows to use multiple processors/cores.
+LiME is a novel lightweight alignment-free and assembly-free framework for metagenomic classification that is combinatorial by nature and allows us to use little internal memory. In [1], a [preliminary version of LiME](https://github.com/veronicaguerrini/LightMetaEbwt_Alcob) has been introduced together with a new sequence similarity measure based on the properties of the extended Burrows–Wheeler transform. In [2], we now implement two variants of the above similarity measure and improve the overall classification. In addition, the new version of our tool allows to use multiple processors/cores.
 
 Let *S* be a large collection of biological sequences comprising both reads and genomes. For simplicity, we denote by *R* the subset of reads (metagenomic sample) and by *G* the subset of genomes (reference database).
 
@@ -9,7 +9,7 @@ It takes in input:
 - the longest common prefix array (lcp) of collection *S*;
 - the document array (da) of collection *S*.
 
-By calculating a similarity degree between any read in *R* and any genome in *G*, LightMetaEbwt performs the metagenomic classification by assigning any read to a unique taxon of belonging. It is able to classify the reads to several taxonomic levels such as genomes, species or phylum.
+By calculating a similarity degree between any read in *R* and any genome in *G*, LiME performs the metagenomic classification by assigning any read to a unique taxon of belonging. It is able to classify the reads to several taxonomic levels such as genomes, species or phylum.
 
 The underlying method can be summarized in three main steps: 
 
@@ -41,8 +41,8 @@ ebwt and lcp, one could use BCR [https://github.com/giovannarosone/BCR_LCP_GSA] 
 ### Install
 
 ```sh
-git clone https://github.com/veronicaguerrini/LightMetaEbwt
-cd LightMetaEbwt
+git clone https://github.com/veronicaguerrini/LiME
+cd LiME
 ```
 ### Compile
 One can choose between the two strategies of Step 2. by setting parameter EBWT: 
@@ -57,7 +57,7 @@ while for running the second approach (b) set EBWT=0
 ```sh
 make EBWT=0
 ```
-Moreover, LightMetaEbwt allows to classify reads at any rank between species and phylum (without specifying a fixed taxonimic level) by taking advantage of taxonomic lineages of taxa using the option HIGHER=1 (default HIGHER=0).
+Moreover, LiME allows to classify reads at any rank between species and phylum (without specifying a fixed taxonimic level) by taking advantage of taxonomic lineages of taxa using the option HIGHER=1 (default HIGHER=0).
 
 ```sh
 make HIGHER=1
@@ -115,7 +115,7 @@ The database Refs.fasta is the fasta file of reference genomes (number of genome
 As preprocessing, we construct the datastructures ebwt, lcp, and da for the set *G*. Then, we merge the datastructures (ebwt, lcp, da) associated with Refs.fasta to those associated with the sets of reads (setB2_1.fasta and setB2_2.fasta, and setB2_1_RC.fasta and setB2_2_RC.fasta, which contain the reverse complement of setB2_1.fasta and setB2_2.fasta) as to obtain the datastructures for the four collections: 
 setB2_1+Refs.fasta, setB2_1_RC+Refs.fasta, setB2_2+Refs.fasta, setB2_2_RC+Refs.fasta.
 
-We store the above datastructures in the directory Datasets, and run LightMetaEbwt to assign any read (or its reverse complement) in setB2 to a species of *G*.
+We store the above datastructures in the directory Datasets, and run LiME to assign any read (or its reverse complement) in setB2 to a species of *G*.
 
 ```sh
 LightMetaEbwt_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2_2_RC+Refs.fasta RESULTS_setB2 numReads numRefs length threads
