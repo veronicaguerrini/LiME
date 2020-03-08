@@ -99,10 +99,10 @@ LineageFile is a semicolon-separated file where genome taxonomy information are 
 TaxRank is an integer in the range [0,6] that stands for any classification level between genome(=0) and phylum(=6).
 
 
-For 100bp paired-end read collections, one may run LightMetaEbwt_paired.sh that has *alpha*=16, *beta*=0.25 and TaxRank=1, and takes as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
+For 100bp paired-end read collections, one may run LiME_paired.sh that has *alpha*=16, *beta*=0.25 and TaxRank=1, and takes as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
 
 ```sh
-LightMetaEbwt_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2RC+Refs.fasta OutputFile numReads numRefs length threads
+LiME_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2RC+Refs.fasta OutputFile numReads numRefs length threads
 ```
 
 ### Example
@@ -118,7 +118,7 @@ setB2_1+Refs.fasta, setB2_1_RC+Refs.fasta, setB2_2+Refs.fasta, setB2_2_RC+Refs.f
 We store the above datastructures in the directory Datasets, and run LiME to assign any read (or its reverse complement) in setB2 to a species of *G*.
 
 ```sh
-LightMetaEbwt_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2_2_RC+Refs.fasta RESULTS_setB2 numReads numRefs length threads
+LiME_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2_2_RC+Refs.fasta RESULTS_setB2 numReads numRefs length threads
 ```
 
 ## References
