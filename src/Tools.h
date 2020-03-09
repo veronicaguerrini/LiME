@@ -27,7 +27,7 @@
 #include <time.h>
 #include <omp.h>
 
-#define BUFFERLCPSIZE 134217728
+#define BUFFERLCPSIZE 1048576
 
 #define sizeMaxBuf 65536
 
