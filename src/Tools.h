@@ -17,6 +17,7 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <unordered_map>
 #include <algorithm>
 #include <stdio.h>
 #include <assert.h>
@@ -34,6 +35,8 @@
 #define BUFFERCLUSTER 2048
 
 #define ERROR 0.02
+
+#define ALF 16
 
 using namespace std;
 
