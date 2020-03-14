@@ -23,7 +23,7 @@ The above strategy is suitable for classifying reads belonging to a single read 
 Howover, since reads' strand direction is unknown, both the original sequences and their reverse complements should be considered to keep reads properly oriented and to improve their classification.
 For paired-end read collections, thus, the procedures at Step 1. and Step 2. have to be repeated for the data structures of both strands (forward and reverse complement) of both paired-end reads.
 
-### Install and compile
+### Install
 
 ```sh
 git clone https://github.com/veronicaguerrini/LiME
