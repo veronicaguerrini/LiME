@@ -120,12 +120,14 @@ For 100bp paired-end read collections, one may run LiME_paired.sh that has *alph
 ```sh
 LiME_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2RC+Refs.fasta OutputFile numReads numRefs length threads
 ```
+### Quick test
 
-### Example
 
-In Datasets, we provide some examples of simulated metagenomic samples. (See for details Datasets/Experiments_links.txt).
+### Datasets
 
-The dataset setB2 is a sample of 20,249,373 paired end short reads (100 bps) stored in setB2_1.fasta and setB2_2.fasta.
+In Datasets, we provide some examples of simulated/real metagenomic samples. (See for details Datasets/Experiments_links.txt).
+
+For instance, the dataset setB2 is a sample of 20,249,373 paired-end short reads (100 bps) stored in setB2_1.fasta and setB2_2.fasta.
 The database Refs.fasta is the fasta file of reference genomes (number of genomes: 930), whose taxonomic information is in ./Datasets/Reference_database.csv
 
 As preprocessing, we construct the data structures ebwt, lcp, and da for the set *G*. Then, we merge the data structures (ebwt, lcp, da) associated with Refs.fasta to those associated with the sets of reads (setB2_1.fasta and setB2_2.fasta, and setB2_1_RC.fasta and setB2_2_RC.fasta, which contain the reverse complement of setB2_1.fasta and setB2_2.fasta) as to obtain the data structures for the four collections: 
