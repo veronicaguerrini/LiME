@@ -74,8 +74,6 @@ fi
 
 #Third step
 
-fileRefDB="Reference_database.csv"
-
 if [ $step3 -eq 1 ]
 then
 /usr/bin/time -v ./Classify 4 $FastaFile1_F".res" $FastaFile1_RC".res" $FastaFile2_F".res" $FastaFile2_RC".res" $numReads $numGenomes $output $LineageFile $TaxRank $threads > "Classify_"$output".stdout" 2> "Classify_"$output".stderr"
