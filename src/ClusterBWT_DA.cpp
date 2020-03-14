@@ -189,7 +189,7 @@ void Analysis_and_updating(vect_id list, std::vector<entryDAeBWT>::iterator init
 	symb_tmp_read.shrink_to_fit();
 }
 #else
-void Analysis_and_updating(std::vector<dataTypeNSeq>::iterator &lowBounds, std::vector<dataTypeNSeq>::iterator &upBounds, std::vector<dataTypeNSeq>::iterator &pos_nReadInCluster, vector<dataTypeSim> &read_symb, vector<dataTypeSim> &ref_symb, dataTypeNSeq nRead, dataTypeSim **SimArray_){
+void Analysis_and_updating(std::vector<dataTypeNSeq>::iterator &lowBounds, std::vector<dataTypeNSeq>::iterator &upBounds, std::vector<dataTypeNSeq>::iterator &pos_nReadInCluster, vector<dataTypeSim> &read_symb, vector<dataTypeSim> &ref_symb, dataTypeNSeq nRead, dataTypeSim **SimArray_)
 {
     PairNReadRef Pairs;
     
