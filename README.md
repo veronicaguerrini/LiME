@@ -71,7 +71,7 @@ Install_tools_preprocessing.sh
 
 To build up the data structures for the set *S* according to the second option (i.e., by building the data structures for the read set *R* and the genome set *G* separately, and then merge them), one could run
 ```sh
-Script_Preprocessing.sh
+Preprocessing.sh
 ```
 by setting first:
 - the fasta file names, and paths;
@@ -122,7 +122,7 @@ LiME_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2R
 ```
 ### Quick test
 
-After running *Install_tools_preprocessing.sh* and *Script_Preprocessing.sh*
+After running *Install_tools_preprocessing.sh* and *Preprocessing.sh*
 
 ```sh
 LiME_paired.sh ./DS_merge/reads_1+Refs.fasta ./DS_merge/reads_1_RC+Refs.fasta ./DS_merge/reads_2+Refs.fasta ./DS_merge/reads_2_RC+Refs.fasta RESULTS 10000 3 ./example/LineageFile.csv 100 1
