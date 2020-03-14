@@ -671,7 +671,11 @@ int main(int argc, char **argv) {
 					}
 					else{	
 						#if HIGHER
-							numA+=AssignToHigher(taxRank-1, idSeqRead, setGen, m_corRef, out, vOutput, numH, highest); 
+						    #if OMP
+							numA+=AssignToHigher(taxRank-1, idSeqRead, setGen, m_corRef, vOutput, numH, highest);
+						    #else
+							numA+=AssignToHigher(taxRank-1, idSeqRead, setGen, m_corRef, out, numH, highest);
+						    #endif
 						#else
 							numA++;
 							#if OMP
