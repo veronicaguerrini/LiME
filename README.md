@@ -115,13 +115,18 @@ LineageFile is a semicolon-separated file where genome taxonomy information are 
 TaxRank is an integer in the range [0,6] that stands for any classification level between genome(=0) and phylum(=6).
 
 
-For 100bp paired-end read collections, one may run LiME_paired.sh that has *alpha*=16, *beta*=0.25 and TaxRank=1, and takes as input: fasta file names, total number of reads in *S*, total number of genomes in *S*, length of the reads and number of threads;
+For 100bp paired-end read collections, one may run LiME_paired.sh that has *alpha*=16, *beta*=0.25 and TaxRank=1, and takes as input: fasta files, total number of reads in *S*, total number of genomes in *S*, taxonomy information file, length of the reads and number of threads;
 
 ```sh
-LiME_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2RC+Refs.fasta OutputFile numReads numRefs length threads
+LiME_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2RC+Refs.fasta OutputFile numReads numRefs LineageFile length threads
 ```
 ### Quick test
 
+After running *Install_tools_preprocessing.sh* and *Script_Preprocessing.sh*
+
+```sh
+./LiME_paired.sh ./DS_merge/reads_1+Refs.fasta ./DS_merge/reads_1_RC+Refs.fasta ./DS_merge/reads_2+Refs.fasta ./DS_merge/reads_2_RC+Refs.fasta RESULTS 10000 3 ./example/LineageFile.csv 100 1
+```
 
 ### Datasets
 
@@ -133,10 +138,10 @@ The database Refs.fasta is the fasta file of reference genomes (number of genome
 As preprocessing, we construct the data structures ebwt, lcp, and da for the set *G*. Then, we merge the data structures (ebwt, lcp, da) associated with Refs.fasta to those associated with the sets of reads (setB2_1.fasta and setB2_2.fasta, and setB2_1_RC.fasta and setB2_2_RC.fasta, which contain the reverse complement of setB2_1.fasta and setB2_2.fasta) as to obtain the data structures for the four collections: 
 setB2_1+Refs.fasta, setB2_1_RC+Refs.fasta, setB2_2+Refs.fasta, setB2_2_RC+Refs.fasta.
 
-We store the above data structures in the directory Datasets, and run LiME to assign any read (or its reverse complement) in setB2 to a species of *G*.
+We store the above data structures in the main directory, and run LiME to assign any read (or its reverse complement) in setB2 to a species of *G*.
 
 ```sh
-LiME_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2_2_RC+Refs.fasta RESULTS_setB2 numReads numRefs length threads
+LiME_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2_2_RC+Refs.fasta RESULTS_setB2 numReads numRefs ./Datasets/Reference_database.csv length threads
 ```
 
 ## References
