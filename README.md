@@ -137,7 +137,7 @@ For instance, the dataset setB2 is a sample of 20,249,373 paired-end short reads
 As preprocessing, the data structures ebwt, lcp, and da for the set *G* are constructed. Then, the data structures (ebwt, lcp, da) associated with Refs.fasta are merged to those associated with the sets of reads (setB2_1.fasta and setB2_2.fasta, and setB2_1_RC.fasta and setB2_2_RC.fasta, which contain the reverse complement of setB2_1.fasta and setB2_2.fasta) as to obtain the data structures for the four collections: 
 setB2_1+Refs.fasta, setB2_1_RC+Refs.fasta, setB2_2+Refs.fasta, setB2_2_RC+Refs.fasta.
 
-Storing the above data structures in the main directory, one could run LiME to assign any pair of reads in setB2 to a species of *G* by using
+Having the above data structures in the main directory, one could run LiME to assign any pair of reads in setB2 to a species of *G* by using
 
 ```sh
 LiME_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2_2_RC+Refs.fasta RESULTS_setB2 20249373 930 ./Datasets/Reference_database.csv 100 4
