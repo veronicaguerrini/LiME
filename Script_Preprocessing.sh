@@ -119,7 +119,7 @@ fi
 
 #EGSA for eBWT/DA for genomes (long sequences)
 
-if [ $build_DS_reads -eq 1 ]
+if [ $build_DS_genomes -eq 1 ]
 then
     mkdir DS_genomes
 
@@ -145,7 +145,7 @@ fi
 ####
 
 #EGAP to merge BWT files and compute LCP and DA of the entire collection
-if [ $build_DS_merge -eq 1 ]
+if [ $build_merge -eq 1 ]
 then
     mkdir DS_merge
     echo -e "\nComputing eBWT/DA/LCP for set reads+genomes"
