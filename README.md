@@ -76,7 +76,7 @@ Script_Preprocessing.sh
 by setting first:
 - the fasta file names, and paths;
 - the read collection type (paired-end or single-end);
-- the use of the merge option --trlcp k. 
+- the use of the merge option *--trlcp k*. 
 
 ### Run
 
