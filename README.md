@@ -23,22 +23,7 @@ The above strategy is suitable for classifying reads belonging to a single read 
 Howover, since reads' strand direction is unknown, both the original sequences and their reverse complements should be considered to keep reads properly oriented and to improve their classification.
 For paired-end read collections, thus, the procedures at Step 1. and Step 2. have to be repeated for the data structures of both strands (forward and reverse complement) of both paired-end reads.
 
-### Preprocessing step
-
-There are mainly two options to obtain the required data structures (ebwt, lcp, da) for *S*:
-- one could build ebwt, lcp, and da starting from a fasta file containing both the reads in *R* and the genomes in *G*;
-- or, one could build the data structures ebwt, lcp, and da separately for the set *G* and the set *R*, and then merge them to obtain ebwt, lcp, and da for the entire collection *S*.
-
-The advantage of the latter choice lies on building the data structures of the set *G* of genomes only once if *G* is the same for each experiment.
-
-To build ebwt, lcp, and da files from scratch from a single fasta file, one could use BCR [https://github.com/giovannarosone/BCR_LCP_GSA], or egsa [https://github.com/felipelouza/egsa] for instance. Note that egsa tool returns the three datastructures in a single file (fastaFile.K.gesa, with K being the number of sequences). The executable file EGSAtoBCR is to convert fastaFile.K.gesa into fileFasta.ebwt, fileFasta.lcp, and fileFasta.da -- use command EGSAtoBCR filefasta K.
-
-To merge the two ebwts associated with the sets *R* and *G*, one could use eGap [https://github.com/felipelouza/egap] and set both options *--lcp* and *--da* to have the lcp and da computed. Note that, the running time of eGap can be decreased if a certain threshold *k* is settled for computing the lcp values. Indeed, by using the option *--trlcp k*, as an altenative to *--lcp*, eGap stops merging the two ebwts when the lcp value calculated is *k*, and computes a lcp array in which all lcp values greater than *k* are replaced by the value *k*.
-
-On the other hand, exploiting the mathematical properties of the permutation associated with the
-ebwt and lcp, one could use BCR [https://github.com/giovannarosone/BCR_LCP_GSA] *incrementally* in order to update the data structures obtained for *G* with th symbols in *R* and to obtain the data structures for the collection *S* (without constructing the eBWT and lcp for *R* from scratch) .
-
-### Install
+### Install and compile
 
 ```sh
 git clone https://github.com/veronicaguerrini/LiME
@@ -62,6 +47,22 @@ Moreover, LiME allows to classify reads at any rank between species and phylum (
 ```sh
 make HIGHER=1
 ```
+
+### Preprocessing step
+
+There are mainly two options to obtain the required data structures (ebwt, lcp, da) for *S*:
+- one could build ebwt, lcp, and da starting from a fasta file containing both the reads in *R* and the genomes in *G*;
+- or, one could build the data structures ebwt, lcp, and da separately for the set *G* and the set *R*, and then merge them to obtain ebwt, lcp, and da for the entire collection *S*.
+
+The advantage of the latter choice lies on building the data structures of the set *G* of genomes only once if *G* is the same for each experiment.
+
+To build ebwt, lcp, and da files from scratch from a single fasta file, one could use BCR [https://github.com/giovannarosone/BCR_LCP_GSA], or egsa [https://github.com/felipelouza/egsa] for instance. Note that egsa tool returns the three datastructures in a single file (fastaFile.K.gesa, with K being the number of sequences). The executable file EGSAtoBCR is to convert fastaFile.K.gesa into fileFasta.ebwt, fileFasta.lcp, and fileFasta.da -- use command EGSAtoBCR filefasta K.
+
+To merge the two ebwts associated with the sets *R* and *G*, one could use eGap [https://github.com/felipelouza/egap] and set both options *--lcp* and *--da* to have the lcp and da computed. Note that, the running time of eGap can be decreased if a certain threshold *k* is settled for computing the lcp values. Indeed, by using the option *--trlcp k*, as an altenative to *--lcp*, eGap stops merging the two ebwts when the lcp value calculated is *k*, and computes a lcp array in which all lcp values greater than *k* are replaced by the value *k*.
+
+On the other hand, exploiting the mathematical properties of the permutation associated with the
+ebwt and lcp, one could use BCR [https://github.com/giovannarosone/BCR_LCP_GSA] *incrementally* in order to update the data structures obtained for *G* with th symbols in *R* and to obtain the data structures for the collection *S* (without constructing the eBWT and lcp for *R* from scratch) .
+
 ### Run
 
 The three steps are accomplished by running:
