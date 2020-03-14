@@ -125,7 +125,7 @@ LiME_paired.sh Reads1F+Refs.fasta Reads1RC+Refs.fasta Reads2F+Refs.fasta Reads2R
 After running *Install_tools_preprocessing.sh* and *Script_Preprocessing.sh*
 
 ```sh
-./LiME_paired.sh ./DS_merge/reads_1+Refs.fasta ./DS_merge/reads_1_RC+Refs.fasta ./DS_merge/reads_2+Refs.fasta ./DS_merge/reads_2_RC+Refs.fasta RESULTS 10000 3 ./example/LineageFile.csv 100 1
+LiME_paired.sh ./DS_merge/reads_1+Refs.fasta ./DS_merge/reads_1_RC+Refs.fasta ./DS_merge/reads_2+Refs.fasta ./DS_merge/reads_2_RC+Refs.fasta RESULTS 10000 3 ./example/LineageFile.csv 100 1
 ```
 
 ### Datasets
