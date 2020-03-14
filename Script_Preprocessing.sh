@@ -7,6 +7,11 @@
 #from a read fasta file and a genome fasta file
 ########################################################
 ########################################################
+build_DS_reads=1      #=1 to build data structures for the read sets
+build_DS_genomes=1    #=1 to build data structures for the genome set
+build_merge=1         #=1 to merge data structures
+########################################################
+########################################################
 
 #Please, modify the following commands according to the fasta file paths and names, and the read collection type (paired-end or single-end)
 
@@ -63,118 +68,100 @@ g++ create_docs.cpp -o ./Preprocessing/create_docs
 
 #BCR for eBWT/DA for reads (short sequences)
 
-rm -fr DS_reads
-mkdir DS_reads
-
-echo -e "\nComputing eBWT/DA for set R1"
-echo "pathBCR: "$pathBCR
-echo "Start BCR..."
-
-/usr/bin/time -v $pathBCR/BCR_LCP_GSA $PathDataset/$FastaDatasetR1 ./DS_reads/$FastaDatasetR1 > "./DS_reads/BCR_$(basename "$FastaDatasetR1" .fasta).stdout" 2> "./DS_reads/BCR_$(basename "$FastaDatasetR1" .fasta).stderr"
-
-./Preprocessing/create_docs $PathDataset/$FastaDatasetR1 $nReads
-mv $PathDataset/$FastaDatasetR1".docs" ./DS_reads
-mv ./DS_reads/$FastaDatasetR1".da" ./DS_reads/$FastaDatasetR1".4.da"
-
-echo -e "\nComputing eBWT/DA for set R1_RC"
-echo "Start BCR..."
-
-/usr/bin/time -v $pathBCR/BCR_LCP_GSA $PathDataset/$FastaDatasetR1RC ./DS_reads/$FastaDatasetR1RC > "./DS_reads/BCR_$(basename "$FastaDatasetR1RC" .fasta).stdout" 2> "./DS_reads/BCR_$(basename "$FastaDatasetR1RC" .fasta).stderr"
-
-./Preprocessing/create_docs $PathDataset/$FastaDatasetR1RC $nReads
-mv $PathDataset/$FastaDatasetR1RC".docs" ./DS_reads
-mv ./DS_reads/$FastaDatasetR1RC".da" ./DS_reads/$FastaDatasetR1RC".4.da"
-
-if [ $paired -eq 1 ]
+if [ $build_DS_reads -eq 1 ]
 then
-    echo -e "\nComputing eBWT/DA for set R2"
+    mkdir DS_reads
+
+    echo -e "\nComputing eBWT/DA for set R1"
+    echo "pathBCR: "$pathBCR
     echo "Start BCR..."
 
-    /usr/bin/time -v $pathBCR/BCR_LCP_GSA $PathDataset/$FastaDatasetR2 ./DS_reads/$FastaDatasetR2 > "./DS_reads/BCR_$(basename "$FastaDatasetR2" .fasta).stdout" 2> "./DS_reads/BCR_$(basename "$FastaDatasetR2" .fasta).stderr"
+    /usr/bin/time -v $pathBCR/BCR_LCP_GSA $PathDataset/$FastaDatasetR1 ./DS_reads/$FastaDatasetR1 > "./DS_reads/BCR_$(basename "$FastaDatasetR1" .fasta).stdout" 2> "./DS_reads/BCR_$(basename "$FastaDatasetR1" .fasta).stderr"
 
-    ./Preprocessing/create_docs $PathDataset/$FastaDatasetR2 $nReads
-    mv $PathDataset/$FastaDatasetR2".docs" ./DS_reads
-    mv ./DS_reads/$FastaDatasetR2".da" ./DS_reads/$FastaDatasetR2".4.da"
+    ./Preprocessing/create_docs $PathDataset/$FastaDatasetR1 $nReads
+    mv $PathDataset/$FastaDatasetR1".docs" ./DS_reads
+    mv ./DS_reads/$FastaDatasetR1".da" ./DS_reads/$FastaDatasetR1".4.da"
 
-    echo -e "\nComputing eBWT/DA for set R2_RC"
+    echo -e "\nComputing eBWT/DA for set R1_RC"
     echo "Start BCR..."
 
-    /usr/bin/time -v $pathBCR/BCR_LCP_GSA $PathDataset/$FastaDatasetR2RC ./DS_reads/$FastaDatasetR2RC > "./DS_reads/BCR_$(basename "$FastaDatasetR2RC" .fasta).stdout" 2> "./DS_reads/BCR_$(basename "$FastaDatasetR2RC" .fasta).stderr"
+    /usr/bin/time -v $pathBCR/BCR_LCP_GSA $PathDataset/$FastaDatasetR1RC ./DS_reads/$FastaDatasetR1RC > "./DS_reads/BCR_$(basename "$FastaDatasetR1RC" .fasta).stdout" 2> "./DS_reads/BCR_$(basename "$FastaDatasetR1RC" .fasta).stderr"
 
-    ./Preprocessing/create_docs $PathDataset/$FastaDatasetR2RC $nReads
-    mv $PathDataset/$FastaDatasetR2RC".docs" ./DS_reads
-    mv ./DS_reads/$FastaDatasetR2RC".da" ./DS_reads/$FastaDatasetR2RC".4.da"
+    ./Preprocessing/create_docs $PathDataset/$FastaDatasetR1RC $nReads
+    mv $PathDataset/$FastaDatasetR1RC".docs" ./DS_reads
+    mv ./DS_reads/$FastaDatasetR1RC".da" ./DS_reads/$FastaDatasetR1RC".4.da"
+
+    if [ $paired -eq 1 ]
+    then
+        echo -e "\nComputing eBWT/DA for set R2"
+        echo "Start BCR..."
+
+        /usr/bin/time -v $pathBCR/BCR_LCP_GSA $PathDataset/$FastaDatasetR2 ./DS_reads/$FastaDatasetR2 > "./DS_reads/BCR_$(basename "$FastaDatasetR2" .fasta).stdout" 2> "./DS_reads/BCR_$(basename "$FastaDatasetR2" .fasta).stderr"
+
+        ./Preprocessing/create_docs $PathDataset/$FastaDatasetR2 $nReads
+        mv $PathDataset/$FastaDatasetR2".docs" ./DS_reads
+        mv ./DS_reads/$FastaDatasetR2".da" ./DS_reads/$FastaDatasetR2".4.da"
+
+        echo -e "\nComputing eBWT/DA for set R2_RC"
+        echo "Start BCR..."
+
+        /usr/bin/time -v $pathBCR/BCR_LCP_GSA $PathDataset/$FastaDatasetR2RC ./DS_reads/$FastaDatasetR2RC > "./DS_reads/BCR_$(basename "$FastaDatasetR2RC" .fasta).stdout" 2> "./DS_reads/BCR_$(basename "$FastaDatasetR2RC" .fasta).stderr"
+
+        ./Preprocessing/create_docs $PathDataset/$FastaDatasetR2RC $nReads
+        mv $PathDataset/$FastaDatasetR2RC".docs" ./DS_reads
+        mv ./DS_reads/$FastaDatasetR2RC".da" ./DS_reads/$FastaDatasetR2RC".4.da"
+    fi
+    rm ./DS_reads/*.len
+    rm ./DS_reads/*.info
 fi
-rm ./DS_reads/*.len
-rm ./DS_reads/*.info
 ####
 ####
 
 #EGSA for eBWT/DA for genomes (long sequences)
 
-rm -rf DS_genome
-mkdir DS_genome
+if [ $build_DS_reads -eq 1 ]
+then
+    mkdir DS_genomes
 
-echo -e "\nComputing eBWT/DA for genomes"
-echo "pathEGSA: "$pathEGSA
-echo "Start EGSA..."
+    echo -e "\nComputing eBWT/DA for genomes"
+    echo "pathEGSA: "$pathEGSA
+    echo "Start EGSA..."
 
-/usr/bin/time -v $pathEGSA/egsa $PathReference/$FastaReference $nRefs > "./DS_genome/EGSA_$(basename "$FastaReference" .fasta).stdout" 2> "./DS_genome/EGSA_$(basename "$FastaReference" .fasta).stderr"
+    /usr/bin/time -v $pathEGSA/egsa $PathReference/$FastaReference $nRefs > "./DS_genomes/EGSA_$(basename "$FastaReference" .fasta).stdout" 2> "./DS_genomes/EGSA_$(basename "$FastaReference" .fasta).stderr"
 
-rm -fr $PathReference/partition
-rm -fr $PathReference/tmp
+    rm -fr $PathReference/partition
+    rm -fr $PathReference/tmp
 
-./Preprocessing/create_docs $PathReference/$FastaReference $nRefs
-echo "Start EGSAtoBCR..."
-./EGSAtoBCR $PathReference/$FastaReference $nRefs
-mv $PathReference/$FastaReference".ebwt" ./DS_genome
-mv $PathReference/$FastaReference".da" ./DS_genome/$FastaReference".4.da"
-mv $PathReference/$FastaReference".docs" ./DS_genome
-rm $PathReference/$FastaReference".lcp"
-rm $PathReference/$FastaReference"."$nRefs".gesa"
+    ./Preprocessing/create_docs $PathReference/$FastaReference $nRefs
+    echo "Start EGSAtoBCR..."
+    ./EGSAtoBCR $PathReference/$FastaReference $nRefs
+    mv $PathReference/$FastaReference".ebwt" ./DS_genomes
+    mv $PathReference/$FastaReference".da" ./DS_genomes/$FastaReference".4.da"
+    mv $PathReference/$FastaReference".docs" ./DS_genomes
+    rm $PathReference/$FastaReference".lcp"
+    rm $PathReference/$FastaReference"."$nRefs".gesa"
+fi
 ####
 ####
 
 #EGAP to merge BWT files and compute LCP and DA of the entire collection
-
-echo -e "\nComputing eBWT/DA/LCP for set reads+genomes"
-rm -rf DS_merge
-mkdir DS_merge
-echo "pathEGAP: "$pathEGAP
-echo "Start EGAP..."
-if [ $truncate -eq 1 ]
+if [ $build_DS_merge -eq 1 ]
 then
-    outmergeF="$(basename "$FastaDatasetR1" .fasta)+Refs_tr"$k".fasta"
-    /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR1".ebwt" ./DS_genome/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
-    outmergeRC="$(basename "$FastaDatasetR1RC" .fasta)+Refs_tr"$k".fasta"
-    /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR1RC".ebwt" ./DS_genome/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
-else
-    outmergeF="$(basename "$FastaDatasetR1" .fasta)+Refs.fasta"
-    /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR1".ebwt" ./DS_genome/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
-    outmergeRC="$(basename "$FastaDatasetR1RC" .fasta)+Refs.fasta"
-    /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR1RC".ebwt" ./DS_genome/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
-fi
-mv ./DS_merge/$outmergeF".4.lcp" ./DS_merge/$outmergeF".lcp"
-mv ./DS_merge/$outmergeRC".4.lcp" ./DS_merge/$outmergeRC".lcp"
-mv ./DS_merge/$outmergeF".4.da" ./DS_merge/$outmergeF".da"
-mv ./DS_merge/$outmergeRC".4.da" ./DS_merge/$outmergeRC".da"
-mv ./DS_merge/$outmergeF".bwt" ./DS_merge/$outmergeF".ebwt"
-mv ./DS_merge/$outmergeRC".bwt" ./DS_merge/$outmergeRC".ebwt"
-
-if [ $paired -eq 1 ]
-then
+    mkdir DS_merge
+    echo -e "\nComputing eBWT/DA/LCP for set reads+genomes"
+    echo "pathEGAP: "$pathEGAP
+    echo "Start EGAP..."
     if [ $truncate -eq 1 ]
     then
-        outmergeF="$(basename "$FastaDatasetR2" .fasta)+Refs_tr"$k".fasta"
-        /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR2".ebwt" ./DS_genome/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
-        outmergeRC="$(basename "$FastaDatasetR2RC" .fasta)+Refs_tr"$k".fasta"
-        /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR2RC".ebwt" ./DS_genome/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
-
+        outmergeF="$(basename "$FastaDatasetR1" .fasta)+Refs_tr"$k".fasta"
+        /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR1".ebwt" ./DS_genome/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
+        outmergeRC="$(basename "$FastaDatasetR1RC" .fasta)+Refs_tr"$k".fasta"
+        /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR1RC".ebwt" ./DS_genome/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
     else
-        outmergeF="$(basename "$FastaDatasetR2" .fasta)+Refs.fasta"
-        /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR2".ebwt" ./DS_genome/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
-        outmergeRC="$(basename "$FastaDatasetR2RC" .fasta)+Refs.fasta"
-        /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR2RC".ebwt" ./DS_genome/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
+        outmergeF="$(basename "$FastaDatasetR1" .fasta)+Refs.fasta"
+        /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR1".ebwt" ./DS_genome/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
+        outmergeRC="$(basename "$FastaDatasetR1RC" .fasta)+Refs.fasta"
+        /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR1RC".ebwt" ./DS_genome/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
     fi
     mv ./DS_merge/$outmergeF".4.lcp" ./DS_merge/$outmergeF".lcp"
     mv ./DS_merge/$outmergeRC".4.lcp" ./DS_merge/$outmergeRC".lcp"
@@ -182,9 +169,31 @@ then
     mv ./DS_merge/$outmergeRC".4.da" ./DS_merge/$outmergeRC".da"
     mv ./DS_merge/$outmergeF".bwt" ./DS_merge/$outmergeF".ebwt"
     mv ./DS_merge/$outmergeRC".bwt" ./DS_merge/$outmergeRC".ebwt"
-fi
-rm ./DS_merge/*.docs
 
+    if [ $paired -eq 1 ]
+    then
+        if [ $truncate -eq 1 ]
+        then
+            outmergeF="$(basename "$FastaDatasetR2" .fasta)+Refs_tr"$k".fasta"
+            /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR2".ebwt" ./DS_genome/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
+            outmergeRC="$(basename "$FastaDatasetR2RC" .fasta)+Refs_tr"$k".fasta"
+            /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR2RC".ebwt" ./DS_genome/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
+
+        else
+            outmergeF="$(basename "$FastaDatasetR2" .fasta)+Refs.fasta"
+            /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR2".ebwt" ./DS_genome/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
+            outmergeRC="$(basename "$FastaDatasetR2RC" .fasta)+Refs.fasta"
+            /usr/bin/time -v $pathEGAP/eGap -m 4096 --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR2RC".ebwt" ./DS_genome/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
+        fi
+        mv ./DS_merge/$outmergeF".4.lcp" ./DS_merge/$outmergeF".lcp"
+        mv ./DS_merge/$outmergeRC".4.lcp" ./DS_merge/$outmergeRC".lcp"
+        mv ./DS_merge/$outmergeF".4.da" ./DS_merge/$outmergeF".da"
+        mv ./DS_merge/$outmergeRC".4.da" ./DS_merge/$outmergeRC".da"
+        mv ./DS_merge/$outmergeF".bwt" ./DS_merge/$outmergeF".ebwt"
+        mv ./DS_merge/$outmergeRC".bwt" ./DS_merge/$outmergeRC".ebwt"
+    fi
+    rm ./DS_merge/*.docs
+fi
 echo "Done."
 ####
 ####
