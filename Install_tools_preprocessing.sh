@@ -5,6 +5,8 @@
 #BCR
 #eGap
 
+INMEM=4096
+
 mkdir Preprocessing
 cd ./Preprocessing
 
@@ -19,7 +21,7 @@ echo -e "\n****Dowloading eGSA...\n"
 git clone https://github.com/felipelouza/egsa
 cd egsa
 echo -e "\n****Compiling eGSA with MEMLIMIT=4096...\n"
-make compile BWT=1 MEMLIMIT=4096
+make compile BWT=1 MEMLIMIT=$INMEM
 
 cd ..
 echo -e "\n****Dowloading BCR...\n"
