@@ -78,7 +78,7 @@ by first setting:
 - the read collection type (paired-end or single-end);
 - the use of the merge option *--trlcp k*. 
 
-Note that one can specify the maximum available internal memory to be used by egsa and eGap (in MB); in the above two scripts we set 4096 MB. Please, modify the parameters INMEM to change it.
+Note that one can specify the maximum available internal memory to be used by egsa and eGap (in MB); in the above two scripts we set 4096 MB (modify the parameters INTMEM to change it).
 
 ### Run
 
