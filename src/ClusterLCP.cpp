@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
 	
 	//InLCP dimension
 	fseek(InLCP[0], 0, SEEK_END);
-	dataTypeNChar sizeInLCP=ftell(InLCP[0])/sizeof(dataTypeNSeq);
+	dataTypeNChar sizeInLCP=ftell(InLCP[0])/sizeof(dataTypelenSeq);
 	
 	//Clustering
 	#if OMP
