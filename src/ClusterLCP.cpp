@@ -241,7 +241,7 @@ int main(int argc, char **argv) {
 			}//end-while
 			
 			//We need to close a possibly open cluster 
-			if(init && (tid==num_threads-1) && nR && nG)//Last thread
+			if(init && (t_id==num_threads-1) && nR && nG)//Last thread
 				nClusters+=Close(cluster, index, maxLen,vOutput);
 			else if (init && (t_id!=num_threads-1)) //Manage straddling clusters 
 			{
