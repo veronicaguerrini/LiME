@@ -149,7 +149,7 @@ LiME_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2
 
 [1] V. Guerrini and G. Rosone. Lightweight Metagenomic Classification via eBWT. Alcob 2019. LNCS, vol 11488, pp 112-124.
 
-[2] V. Guerrini, F. A. Louza and G. Rosone. Metagenomic analysis through the extended Burrows-Wheeler transform. Submitted.
+[2] V. Guerrini, F. A. Louza and G. Rosone. Metagenomic analysis through the extended Burrows-Wheeler transform. BMC Bioinform (2020), 21-S(8): 299, 10.1186/s12859-020-03628-w, Open Access.
 
 
 ## Thanks
