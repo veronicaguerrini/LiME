@@ -151,6 +151,7 @@ LiME_paired.sh setB2_1+Refs.fasta setB2_1_RC+Refs.fasta setB2_2+Refs.fasta setB2
 
 [2] V. Guerrini, F. A. Louza and G. Rosone. Metagenomic analysis through the extended Burrows-Wheeler transform. Submitted.
 
+
 ## Thanks
 
 <small> Supported by the project Italian MIUR-SIR [CMACBioSeq][240fb5f5] ("_Combinatorial methods for analysis and compression of biological sequences_") grant n.~RBSI146R5L. P.I. Giovanna Rosone</small>
