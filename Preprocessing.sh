@@ -156,14 +156,14 @@ then
     if [ $truncate -eq 1 ]
     then
         outmergeF="$(basename "$FastaDatasetR1" .fasta)+Refs_tr"$k".fasta"
-        /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR1".ebwt" ./DS_genomes/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
+        /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --em --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR1".ebwt" ./DS_genomes/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --trlcp $k > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
         outmergeRC="$(basename "$FastaDatasetR1RC" .fasta)+Refs_tr"$k".fasta"
-        /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR1RC".ebwt" ./DS_genomes/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
+        /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --em --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR1RC".ebwt" ./DS_genomes/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --trlcp $k > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
     else
         outmergeF="$(basename "$FastaDatasetR1" .fasta)+Refs.fasta"
-        /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR1".ebwt" ./DS_genomes/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
+        /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --em --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR1".ebwt" ./DS_genomes/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
         outmergeRC="$(basename "$FastaDatasetR1RC" .fasta)+Refs.fasta"
-        /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR1RC".ebwt" ./DS_genomes/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
+        /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --em --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR1RC".ebwt" ./DS_genomes/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
     fi
     mv ./DS_merge/$outmergeF".4.lcp" ./DS_merge/$outmergeF".lcp"
     mv ./DS_merge/$outmergeRC".4.lcp" ./DS_merge/$outmergeRC".lcp"
@@ -177,15 +177,15 @@ then
         if [ $truncate -eq 1 ]
         then
             outmergeF="$(basename "$FastaDatasetR2" .fasta)+Refs_tr"$k".fasta"
-            /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR2".ebwt" ./DS_genomes/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
+            /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --em --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR2".ebwt" ./DS_genomes/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --trlcp $k > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
             outmergeRC="$(basename "$FastaDatasetR2RC" .fasta)+Refs_tr"$k".fasta"
-            /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR2RC".ebwt" ./DS_genomes/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --docs --trlcp $k > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
+            /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --em --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR2RC".ebwt" ./DS_genomes/$FastaReference".ebwt" --lbytes 4 --da --dbytes 4 --trlcp $k > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
 
         else
             outmergeF="$(basename "$FastaDatasetR2" .fasta)+Refs.fasta"
-            /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR2".ebwt" ./DS_genomes/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
+            /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --em --bwt -o ./DS_merge/$outmergeF ./DS_reads/$FastaDatasetR2".ebwt" ./DS_genomes/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 > "eGap_merge_$(basename "$outmergeF" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeF" .fasta).stderr"
             outmergeRC="$(basename "$FastaDatasetR2RC" .fasta)+Refs.fasta"
-            /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR2RC".ebwt" ./DS_genomes/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 --docs > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
+            /usr/bin/time -v $pathEGAP/eGap -m $INTMEM --em --bwt -o ./DS_merge/$outmergeRC ./DS_reads/$FastaDatasetR2RC".ebwt" ./DS_genomes/$FastaReference".ebwt" --lcp --lbytes 4 --da --dbytes 4 > "eGap_merge_$(basename "$outmergeRC" .fasta).stdout" 2> "eGap_merge_$(basename "$outmergeRC" .fasta).stderr"
         fi
         mv ./DS_merge/$outmergeF".4.lcp" ./DS_merge/$outmergeF".lcp"
         mv ./DS_merge/$outmergeRC".4.lcp" ./DS_merge/$outmergeRC".lcp"
