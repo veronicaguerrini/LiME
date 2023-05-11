@@ -42,12 +42,10 @@
 
 #define SIZEBUFFER 1024     //Size of the buffer for I/O partial ebwt/LCP/DA/SA
 
-#define TERMINATE_CHAR '\0'     //it is the symbol used as "end of strings", it must be lexicographically smaller than all the letters of the alphabet
-#define TERMINATE_CHAR_LEN '$'      //it is stored in cyc files, it is ignored by the algorithm, so it must not belong to the alphabet
+#define ext  ".aux"
 
 #define SIZE_ALPHA 256  
 
-#define ext  ".aux"
 
 typedef unsigned char uchar;
 typedef unsigned short ushort;
@@ -55,11 +53,15 @@ typedef unsigned int uint;
 typedef unsigned long ulong;
 
 #define dataTypedimAlpha uchar  //size of the alphabet (in biologic case 6 ($,A,C,G,N,T))
+//note that you have to reserve two characters:
+#define TERMINATE_CHAR '$'     //it is the symbol used as "end of strings", it must be lexicographically smaller than all the letters of the alphabet
+#define TERMINATE_CHAR_LEN uchar(255)      //it is stored in cyc files, it is ignored by the algorithm, so it must not belong to the alphabet
 
-/* USE: 0 - below 255 (unsigned char)
- *		1 - between 256 and 65.536 (unsigned short)
- *		2 - between 65.536 and 4.294.967.296 (unsigned int)
- *		3 - otherwise (unsigned long)
+/* For dataTypeLengthSequences USE: 
+ *      0 (unsigned char)  - for read length <= (255-1) 
+ *	1 (unsigned short) - for read length between 255 and (65.536-1)
+ *	2 (unsigned int)   - for read length <= between 65.535 and (4.294.967.296-1) 
+ *	3 (unsigned long)  - for read length <= otherwise 
  */
 
 // Type size for Sequences Length (in biologic case 100)
@@ -119,10 +121,34 @@ typedef unsigned long ulong;
 #define deletePartialLCP 1 
 #define deletePartialGSA 1 
 #define deletePartialQS 1
+#define deletePartialSAP 1 
 #define deleteCycFiles 1
 
-//Compute the BWT permutation of the quality values
-#define USE_QS 0
+#if FASTQ==1
+    //Compute the quality score permutation associated to BWT   permutation
+	#define USE_QS 1
+
+    //if you want to store the titles of each read in fastQ into a file with extension .title, please set it to 1
+    #define STORE_TITLE_FASTQ 1
+#else
+    #define USE_QS 0             //if you want to build QS permutation from fasta and qs file, please set USE_QS to 1
+#endif
+
+#if SAP==1
+    //Compute the SAP-array associated with BWT permutation
+	#define BUILD_SAP 1
+
+    #define BCR_SET_ALN_RH 1
+#else
+    #define BUILD_SAP 0  //if you want to build the SAP array, please set BUILD_SAP to 1
+
+	//if BCR_SET_ALN_RH=0 then BCR computes the EBWT (the input is a set) aligning strings left 
+	//if BCR_SET_ALN_RH=1 then BCR computes the EBWT (the input is a set) aligning strings right 
+	#define BCR_SET_ALN_RH 0
+#endif
+
+//Use kseq to read sequences
+#define KSEQ_PARSER 1
 
 //if you want to compute the LCP array, please set it to 1
 #define BUILD_LCP 0
