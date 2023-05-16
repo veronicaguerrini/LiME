@@ -647,7 +647,9 @@ int main(int argc, char **argv) {
 		
 		chunk= endRead-startRead;
         
+		#if OMP
         double start=omp_get_wtime();
+		#endif
 		
 		fseek(InFileCluster[tid], startRead*sizeof(ElementCluster), SEEK_SET);
 		
@@ -661,7 +663,9 @@ int main(int argc, char **argv) {
 		
 		#pragma omp critical
         {
+		#if OMP
             std::cerr << "TIME THREAD " << tid << " = " << omp_get_wtime()-start << "(in seconds)\n";
+		#endif
         }
     }//end-pragma
   

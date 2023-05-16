@@ -6,26 +6,27 @@ VLIB= -g -O0
 MY_CXX_FLAGS= -std=c++11 -Wall -DNDEBUG -fomit-frame-pointer -Wno-comment
 #-D_FILE_OFFSET_BITS=64
 
-OMP_LIB= -fopenmp 
-
-MY_CXX_OPT_FLAGS= -O3 -m64 $(OMP_LIB) 
-#MY_CXX_OPT_FLAGS= $(VLIB)
-MY_CXX=g++
-
-
-##
-
-LIBOBJ = \
-	external/malloc_count/malloc_count.o
-
-##
-
 M64 = 0
 OMP = 1
 DEBUG = 0
 BIN = 1
 EBWT = 1
 HIGHER = 0
+
+LIBOBJ = 
+OMP_LIB =
+##
+ifeq ($(OMP),0)
+	LIBOBJ = external/malloc_count/malloc_count.o
+else
+	OMP_LIB= -fopenmp 
+endif
+##
+
+MY_CXX_OPT_FLAGS= -O3 -m64 $(OMP_LIB) 
+#MY_CXX_OPT_FLAGS= $(VLIB) $(OMP_LIB)
+MY_CXX=g++
+
 
 alpha = 16
 beta = 0.25
