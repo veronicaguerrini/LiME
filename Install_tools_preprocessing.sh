@@ -26,10 +26,9 @@ make compile BWT=1 MEMLIMIT=$INTMEM
 cd ..
 echo -e "\n****Dowloading BCR...\n"
 git clone https://github.com/giovannarosone/BCR\_LCP\_GSA
-cp ./../BCR_Parameters.h ./BCR\_LCP\_GSA/Parameters.h
 cd BCR\_LCP\_GSA
 echo -e "\n****Compiling BCR...\n"
-make
+make DA=1
 
 cd ..
 echo -e "\n****Dowloading eGAP...\n"
