@@ -8,8 +8,7 @@ The taxonomic rank to which the read is possibly assigned can be fixed, and in t
 Input: The number of .txt\.bin files, list of names of .txt\.bin files obtained from ClusterBWT, total number of reads, total number of genomes, output name file, taxonomy file, rank, threads
 
 The database taxonomy information must be provided in a ';'-separated file mapping reference sequence IDs to their lineage, whose first line is:
- Seq_ID;Kingdom_TaxID;Species_TaxID
- Ex.;Genus_TaxID:Family_TaxID;Order_TaxID;Class_TaxID;Phylum_TaxID
+Accession_number;Species_TaxID;Genus_TaxID;Family_TaxID;Order_TaxID;Class_TaxID;Phylum_TaxID
 Ex.
 NC_011750.1;562;561;543;91347;1236;1224
 	
